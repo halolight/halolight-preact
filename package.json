@@ -1,0 +1,64 @@
+{
+  "name": "halolight-preact",
+  "version": "0.1.0",
+  "private": true,
+  "description": "基于 Preact + Vite 的轻量级中文后台管理系统，具备极小体积和高性能",
+  "author": "h7ml <h7ml@qq.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halolight/halolight-preact"
+  },
+  "homepage": "https://halolight-preact.h7ml.cn",
+  "bugs": {
+    "url": "https://github.com/halolight/halolight-preact/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.0.0",
+    "clsx": "^2.1.1",
+    "lucide-preact": "^0.474.0",
+    "mockjs": "^1.1.0",
+    "preact": "^10.27.2",
+    "preact-router": "^4.1.2",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@preact/preset-vite": "^2.10.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/preact": "^3.2.4",
+    "@types/mockjs": "^1.0.10",
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^4.0.14",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^16.5.0",
+    "happy-dom": "^20.0.11",
+    "jsdom": "^27.2.0",
+    "postcss": "^8.5.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.14"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "packageManager": "pnpm@10.23.0"
+}
