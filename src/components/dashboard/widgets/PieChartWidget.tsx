@@ -1,14 +1,17 @@
-import { h } from 'preact'
 import { useMemo } from 'preact/hooks'
 import {
   PieChart,
   Pie,
   Cell,
   Tooltip,
-  ResponsiveContainer,
-  Legend
+  ResponsiveContainer
 } from 'recharts'
 import { useDashboardData } from '../../../stores/dashboard'
+
+interface TrafficSource {
+  name: string
+  value: number
+}
 
 interface PieChartWidgetProps {
   isMobile?: boolean
@@ -22,12 +25,19 @@ const COLORS = [
   'hsl(var(--chart-5))'
 ]
 
+interface ChartDataItem {
+  name: string
+  value: number
+  fill: string
+  [key: string]: string | number
+}
+
 export function PieChartWidget({ isMobile }: PieChartWidgetProps) {
   const { trafficSources, isLoading } = useDashboardData()
 
-  const chartData = useMemo(() => {
+  const chartData: ChartDataItem[] = useMemo(() => {
     if (!trafficSources.value || trafficSources.value.length === 0) return []
-    return trafficSources.value.map((item, index) => ({
+    return trafficSources.value.map((item: TrafficSource, index: number) => ({
       name: item.name,
       value: item.value,
       fill: COLORS[index % COLORS.length]
@@ -58,7 +68,7 @@ export function PieChartWidget({ isMobile }: PieChartWidgetProps) {
               paddingAngle={5}
               dataKey="value"
             >
-              {chartData.map((entry, index) => (
+              {chartData.map((entry: ChartDataItem, index: number) => (
                 <Cell key={`cell-${index}`} fill={entry.fill} />
               ))}
             </Pie>
@@ -74,7 +84,7 @@ export function PieChartWidget({ isMobile }: PieChartWidgetProps) {
         </ResponsiveContainer>
       </div>
       <div class="flex flex-wrap justify-center gap-3">
-        {chartData.map((item, index) => (
+        {chartData.map((item: ChartDataItem, index: number) => (
           <div key={index} class="flex items-center gap-2">
             <span
               class="h-2.5 w-2.5 rounded-full"

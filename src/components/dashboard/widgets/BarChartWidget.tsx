@@ -1,4 +1,3 @@
-import { h } from 'preact'
 import { useMemo } from 'preact/hooks'
 import {
   BarChart,
@@ -12,6 +11,12 @@ import {
 } from 'recharts'
 import { useDashboardData } from '../../../stores/dashboard'
 
+interface SalesDataItem {
+  month: string
+  sales: number
+  orders: number
+}
+
 interface BarChartWidgetProps {
   isMobile?: boolean
 }
@@ -22,10 +27,10 @@ export function BarChartWidget({ isMobile }: BarChartWidgetProps) {
   const chartData = useMemo(() => {
     if (!salesData.value || salesData.value.length === 0) return []
 
-    return salesData.value.map((item) => ({
-      month: item.month.slice(5), // 只显示月份 MM
-      销售���: item.sales,
-      订单数: item.orders * 100 // 缩放以便在同一图表中显示
+    return salesData.value.map((item: SalesDataItem) => ({
+      month: item.month.slice(5),
+      sales: item.sales,
+      orders: item.orders * 100
     }))
   }, [salesData.value])
 
@@ -34,7 +39,7 @@ export function BarChartWidget({ isMobile }: BarChartWidgetProps) {
   if (isLoading.value) {
     return (
       <div class="flex items-center justify-center h-full">
-        <div class="text-sm text-muted-foreground">加载中...</div>
+        <div class="text-sm text-muted-foreground">Loading...</div>
       </div>
     )
   }
@@ -66,12 +71,14 @@ export function BarChartWidget({ isMobile }: BarChartWidgetProps) {
             iconSize={12}
           />
           <Bar
-            dataKey="销售额"
+            dataKey="sales"
+            name="Sales"
             fill="hsl(var(--chart-1))"
             radius={[4, 4, 0, 0]}
           />
           <Bar
-            dataKey="订单数"
+            dataKey="orders"
+            name="Orders"
             fill="hsl(var(--chart-2))"
             radius={[4, 4, 0, 0]}
           />

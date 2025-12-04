@@ -1,6 +1,4 @@
-import { h } from 'preact'
 import { useMemo } from 'preact/hooks'
-import { useDashboardData } from '../../../stores/dashboard'
 
 interface TasksWidgetProps {
   isMobile?: boolean

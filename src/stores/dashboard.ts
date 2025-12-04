@@ -2,6 +2,35 @@ import { signal } from "@preact/signals"
 import { getLocalStorageItem, setLocalStorageItem, generateId } from "../lib/utils"
 import type { DashboardWidget, DashboardLayout, WidgetType } from "../types"
 
+// Mock data for charts
+export const salesData = signal([
+  { month: '2024-01', sales: 12000, orders: 45 },
+  { month: '2024-02', sales: 15000, orders: 52 },
+  { month: '2024-03', sales: 18000, orders: 61 },
+  { month: '2024-04', sales: 14000, orders: 48 },
+  { month: '2024-05', sales: 21000, orders: 73 },
+  { month: '2024-06', sales: 19000, orders: 65 },
+])
+
+export const trafficSources = signal([
+  { name: '直接访问', value: 3350 },
+  { name: '搜索引擎', value: 2100 },
+  { name: '社交媒体', value: 1800 },
+  { name: '邮件推广', value: 950 },
+  { name: '其他渠道', value: 650 },
+])
+
+export const isLoading = signal(false)
+
+// Hook for accessing dashboard data
+export function useDashboardData() {
+  return {
+    salesData,
+    trafficSources,
+    isLoading,
+  }
+}
+
 // 仪表盘部件类型定义
 const WIDGET_TYPES: WidgetType[] = [
   'stats',

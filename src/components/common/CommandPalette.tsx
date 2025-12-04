@@ -1,4 +1,3 @@
-import { h } from 'preact'
 import { useState, useEffect, useCallback } from 'preact/hooks'
 import { route } from 'preact-router'
 import {
@@ -17,8 +16,7 @@ import {
   LogOut,
   UserCheck
 } from 'lucide-preact'
-import { user as userSignal, accounts, activeAccountId, switchAccount, logout } from '../../stores/auth'
-import { Button } from '../ui/Button'
+import { accounts, activeAccountId, switchAccount, logout } from '../../stores/auth'
 
 interface CommandPaletteProps {
   open: boolean
@@ -29,7 +27,7 @@ interface Command {
   id: string
   label: string
   icon: any
-  action: () => void | Promise<void>
+  action: () => void | boolean | Promise<void>
   keywords?: string[]
   category: string
 }
@@ -296,7 +294,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
                     {category}
                   </div>
-                  {commands.map((cmd, idx) => {
+                  {commands.map((cmd) => {
                     const globalIndex = filteredCommands.indexOf(cmd)
                     const isSelected = globalIndex === selectedIndex
                     const Icon = cmd.icon

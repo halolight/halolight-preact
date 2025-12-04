@@ -1,7 +1,5 @@
-import { h } from 'preact'
 import { useEffect, useRef, useState, useCallback } from 'preact/hooks'
-import { route } from 'preact-router'
-import { useLocation } from 'preact-iso'
+import { route, getCurrentUrl } from 'preact-router'
 import { ChevronLeft, ChevronRight, X, Home, Users, Settings, FileText } from 'lucide-preact'
 import {
   tabs,
@@ -17,6 +15,21 @@ import {
   type Tab
 } from '../../stores/tabs'
 import { Button } from '../ui/Button'
+
+// 自定义 hook 获取当前路径
+function useCurrentPath() {
+  const [path, setPath] = useState(getCurrentUrl())
+
+  useEffect(() => {
+    const handleRoute = () => {
+      setPath(getCurrentUrl())
+    }
+    window.addEventListener('popstate', handleRoute)
+    return () => window.removeEventListener('popstate', handleRoute)
+  }, [])
+
+  return path
+}
 
 // 路径到标题的映射
 const pathTitles: Record<string, string> = {
@@ -64,7 +77,7 @@ interface ContextMenuState {
 }
 
 export function TabBar() {
-  const location = useLocation()
+  const currentPath = useCurrentPath()
   const tabsContainerRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(false)
@@ -74,8 +87,6 @@ export function TabBar() {
     y: 0,
     tab: null,
   })
-
-  const currentPath = location.path
 
   // 检查滚动状态
   const checkScroll = useCallback(() => {

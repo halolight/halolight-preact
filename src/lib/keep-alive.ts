@@ -1,6 +1,11 @@
 import { signal } from '@preact/signals'
 import { useEffect, useCallback } from 'preact/hooks'
-import { useLocation } from 'preact-iso'
+import { getCurrentUrl } from 'preact-router'
+
+// 获取当前路径
+function useCurrentPath() {
+  return getCurrentUrl()
+}
 
 // 页面状态缓存
 interface PageState {
@@ -50,8 +55,7 @@ export function clearAllCache(): void {
  * Hook: 自动保存和恢复滚动位置
  */
 export function useScrollRestore() {
-  const location = useLocation()
-  const pathname = location.path
+  const pathname = useCurrentPath()
 
   useEffect(() => {
     let isRestoring = false
@@ -64,7 +68,7 @@ export function useScrollRestore() {
     }
 
     // 使用节流
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: ReturnType<typeof setTimeout>
     const throttledScroll = () => {
       clearTimeout(timeoutId)
       timeoutId = setTimeout(handleScroll, 100)
@@ -100,8 +104,7 @@ export function useFormCache<T extends Record<string, unknown>>(
   formKey: string,
   initialValues: T
 ): [T, (values: T) => void, () => void] {
-  const location = useLocation()
-  const pathname = location.path
+  const pathname = useCurrentPath()
   const cacheKey = `${pathname}:${formKey}`
 
   // 从缓存获取初始值
@@ -145,8 +148,7 @@ export function useStateCache<T>(
   key: string,
   initialValue: T
 ): [T, (value: T) => void] {
-  const location = useLocation()
-  const pathname = location.path
+  const pathname = useCurrentPath()
   const cacheKey = `${pathname}:${key}`
 
   // 从缓存获取初始值
