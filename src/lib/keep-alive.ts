@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact'
 import { signal } from '@preact/signals'
 import { useEffect, useCallback } from 'preact/hooks'
 import { getCurrentUrl } from 'preact-router'
@@ -129,6 +130,7 @@ export function useFormCache<T extends Record<string, unknown>>(
     (newValues: T) => {
       setValuesSignal(newValues)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [cacheKey]
   )
 
@@ -136,6 +138,7 @@ export function useFormCache<T extends Record<string, unknown>>(
   const clearCache = useCallback(() => {
     setValuesSignal(initialValues)
     clearPageState(cacheKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cacheKey, initialValues])
 
   return [values as unknown as T, saveValues, clearCache]
@@ -171,6 +174,7 @@ export function useStateCache<T>(
         customState: { ...pageState.customState, [key]: newValue },
       })
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [cacheKey, key]
   )
 
@@ -181,7 +185,7 @@ export function useStateCache<T>(
  * KeepAlive 组件包装器
  */
 interface KeepAliveWrapperProps {
-  children: any
+  children: ComponentChildren
 }
 
 export function KeepAliveWrapper({ children }: KeepAliveWrapperProps) {

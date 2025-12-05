@@ -46,7 +46,7 @@ export interface Permission {
   description?: string
 }
 
-export type UserStatus = 'active' | 'inactive' | 'banned'
+export type UserStatus = 'active' | 'inactive' | 'suspended'
 
 /**
  * 认证相关类型
@@ -75,13 +75,13 @@ export interface ResetPasswordData {
  */
 export interface DashboardStats {
   totalUsers: number
-  userChange: number
+  userGrowth: number
   totalRevenue: number
-  revenueChange: number
+  revenueGrowth: number
   totalOrders: number
-  orderChange: number
+  orderGrowth: number
   conversionRate: number
-  conversionChange: number
+  rateGrowth: number
 }
 
 export interface ChartData {

@@ -15,13 +15,13 @@ const { Random } = Mock
 function generateDashboardStats(): DashboardStats {
   return {
     totalUsers: Random.integer(1000, 5000),
-    userChange: Random.float(-20, 20, 2, 2),
+    userGrowth: Random.float(-20, 20, 2, 2),
     totalRevenue: Random.integer(50000, 200000),
-    revenueChange: Random.float(-10, 30, 2, 2),
+    revenueGrowth: Random.float(-10, 30, 2, 2),
     totalOrders: Random.integer(100, 1000),
-    orderChange: Random.float(-15, 25, 2, 2),
+    orderGrowth: Random.float(-15, 25, 2, 2),
     conversionRate: Random.float(1, 10, 2, 2),
-    conversionChange: Random.float(-5, 15, 2, 2)
+    rateGrowth: Random.float(-5, 15, 2, 2)
   }
 }
 

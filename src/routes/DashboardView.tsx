@@ -122,28 +122,28 @@ export function DashboardView() {
           <StatCard
             title="总用户数"
             value={stats?.totalUsers.toLocaleString() || '0'}
-            change={stats?.userChange || 0}
+            change={stats?.userGrowth || 0}
             icon={Users}
             loading={loading}
           />
           <StatCard
             title="总收入"
             value={`¥${stats?.totalRevenue.toLocaleString() || '0'}`}
-            change={stats?.revenueChange || 0}
+            change={stats?.revenueGrowth || 0}
             icon={TrendingUp}
             loading={loading}
           />
           <StatCard
             title="总订单"
             value={stats?.totalOrders.toLocaleString() || '0'}
-            change={stats?.orderChange || 0}
+            change={stats?.orderGrowth || 0}
             icon={ShoppingCart}
             loading={loading}
           />
           <StatCard
             title="转化率"
             value={`${stats?.conversionRate || '0'}%`}
-            change={stats?.conversionChange || 0}
+            change={stats?.rateGrowth || 0}
             icon={Activity}
             loading={loading}
           />

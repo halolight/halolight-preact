@@ -14,7 +14,8 @@ import {
   Sun,
   Moon,
   LogOut,
-  UserCheck
+  UserCheck,
+  type LucideIcon
 } from 'lucide-preact'
 import { accounts, activeAccountId, switchAccount, logout } from '../../stores/auth'
 
@@ -26,7 +27,7 @@ interface CommandPaletteProps {
 interface Command {
   id: string
   label: string
-  icon: any
+  icon: LucideIcon
   action: () => void | boolean | Promise<void>
   keywords?: string[]
   category: string
@@ -158,7 +159,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       id: 'action-search',
       label: '全局搜索',
       icon: Search,
-      action: () => console.log('全局搜索'),
+      action: () => {
+        // TODO: 实现全局搜索功能
+      },
       keywords: ['search', 'find'],
       category: '操作'
     },
@@ -202,6 +205,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     return groups
   }, {} as Record<string, Command[]>)
 
+  // 执行命令
+  const executeCommand = useCallback(async (cmd: Command) => {
+    onOpenChange(false)
+    setSearch('')
+    setSelectedIndex(0)
+    await cmd.action()
+  }, [onOpenChange])
+
   // 键盘快捷键
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -240,19 +251,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, filteredCommands, selectedIndex])
+  }, [open, filteredCommands, selectedIndex, executeCommand, onOpenChange])
 
   // 重置选中索引当搜索改变时
   useEffect(() => {
     setSelectedIndex(0)
   }, [search])
-
-  const executeCommand = useCallback(async (cmd: Command) => {
-    onOpenChange(false)
-    setSearch('')
-    setSelectedIndex(0)
-    await cmd.action()
-  }, [onOpenChange])
 
   if (!open) return null
 
@@ -310,7 +314,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                         onClick={() => executeCommand(cmd)}
                         onMouseEnter={() => setSelectedIndex(globalIndex)}
                       >
-                        <Icon class="h-4 w-4" />
+                        <Icon className="h-4 w-4" />
                         <span class="flex-1 text-left">{cmd.label}</span>
                         {cmd.id.startsWith('account-') &&
                           cmd.id === `account-${activeAccountId.value}` && (

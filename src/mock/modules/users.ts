@@ -43,7 +43,7 @@ const ROLES: Role[] = [
 
 // 生成随机用户数据
 function generateUsers(count: number): User[] {
-  const statuses: UserStatus[] = ['active', 'inactive', 'banned']
+  const statuses: UserStatus[] = ['active', 'inactive', 'suspended']
   const departments = ['技术部', '市场部', '销售部', '人事部', '财务部', '运营部']
   const positions = ['经理', '主管', '专员', '助理', '工程师', '分析师']
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'preact/hooks'
 import { route, getCurrentUrl } from 'preact-router'
-import { ChevronLeft, ChevronRight, X, Home, Users, Settings, FileText } from 'lucide-preact'
+import { ChevronLeft, ChevronRight, X, Home, Users, Settings, FileText, type LucideIcon } from 'lucide-preact'
 import {
   tabs,
   activeTabId,
@@ -48,7 +48,7 @@ const pathTitles: Record<string, string> = {
 }
 
 // 路径到图标的映射
-const pathIcons: Record<string, any> = {
+const pathIcons: Record<string, LucideIcon> = {
   '/': Home,
   '/users': Users,
   '/settings': Settings,
@@ -62,7 +62,7 @@ const resolveTitle = (path: string): string => {
   return match ? match[1] : path.split('/').pop() || '新页面'
 }
 
-const resolveIcon = (path: string): any => {
+const resolveIcon = (path: string): LucideIcon => {
   const match = Object.entries(pathIcons).find(
     ([key]) => path === key || path.startsWith(`${key}/`)
   )
@@ -108,7 +108,7 @@ export function TabBar() {
     if (activeTab) {
       activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
     }
-  }, [activeTabId.value])
+  }, [])
 
   // 监听路由变化，自动添加标签
   useEffect(() => {
@@ -130,7 +130,7 @@ export function TabBar() {
   useEffect(() => {
     checkScroll()
     scrollToActiveTab()
-  }, [tabs.value, activeTabId.value, checkScroll, scrollToActiveTab])
+  }, [checkScroll, scrollToActiveTab])
 
   // 监听容器大小变化
   useEffect(() => {
@@ -251,7 +251,7 @@ export function TabBar() {
                   : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
               }`}
               onClick={() => handleTabClick(tab)}
-              onContextMenu={(e) => handleContextMenu(e as any, tab)}
+              onContextMenu={(e) => handleContextMenu(e as unknown as MouseEvent, tab)}
             >
               {/* 活动指示器 */}
               {activeTabId.value === tab.id && (
@@ -259,7 +259,7 @@ export function TabBar() {
               )}
 
               {/* 图标 */}
-              {Icon && <Icon class="h-3.5 w-3.5 shrink-0" />}
+              {Icon && <Icon className="h-3.5 w-3.5 shrink-0" />}
 
               {/* 标题 */}
               <span class="truncate text-sm">{tab.title}</span>
@@ -272,7 +272,7 @@ export function TabBar() {
                       ? 'opacity-100'
                       : 'opacity-0 group-hover:opacity-100'
                   }`}
-                  onClick={(e) => handleCloseTab(e as any, tab)}
+                  onClick={(e) => handleCloseTab(e as unknown as MouseEvent, tab)}
                 >
                   <X class="h-3 w-3" />
                 </button>
@@ -306,7 +306,7 @@ export function TabBar() {
               class="w-full px-3 py-1.5 text-sm text-left hover:bg-accent hover:text-accent-foreground"
               onClick={() => {
                 if (contextMenu.tab) {
-                  handleCloseTab(new MouseEvent('click') as any, contextMenu.tab)
+                  handleCloseTab(new MouseEvent('click'), contextMenu.tab)
                 }
               }}
             >
