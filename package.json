@@ -28,11 +28,13 @@
   },
   "dependencies": {
     "@preact/signals": "^2.0.0",
+    "@types/recharts": "^2.0.1",
     "clsx": "^2.1.1",
     "lucide-preact": "^0.474.0",
     "mockjs": "^1.1.0",
     "preact": "^10.27.2",
     "preact-router": "^4.1.2",
+    "recharts": "^3.5.1",
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {

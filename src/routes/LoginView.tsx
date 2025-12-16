@@ -26,6 +26,12 @@ export function LoginView() {
     clearError()
   }
 
+  const SOCIAL_LINKS = {
+    github: 'https://github.com/halolight/halolight-preact',
+    google: 'https://halolight-docs.h7ml.cn',
+    wechat: 'https://github.com/halolight',
+  }
+
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
 
@@ -55,10 +61,20 @@ export function LoginView() {
         <CardContent>
           {/* 社交登录 */}
           <div class="grid grid-cols-3 gap-4 mb-6">
-            <Button variant="outline" type="button" className="w-full">
+            <a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center p-2 border border-input rounded-md hover:bg-accent transition-colors"
+            >
               <Github class="h-5 w-5" />
-            </Button>
-            <Button variant="outline" type="button" className="w-full">
+            </a>
+            <a
+              href={SOCIAL_LINKS.google}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center p-2 border border-input rounded-md hover:bg-accent transition-colors"
+            >
               <svg class="h-5 w-5" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
@@ -77,10 +93,15 @@ export function LoginView() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-            </Button>
-            <Button variant="outline" type="button" className="w-full">
+            </a>
+            <a
+              href={SOCIAL_LINKS.wechat}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center p-2 border border-input rounded-md hover:bg-accent transition-colors"
+            >
               <MessageCircle class="h-5 w-5" />
-            </Button>
+            </a>
           </div>
 
           <div class="relative mb-6">
